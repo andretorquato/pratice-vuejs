@@ -2,9 +2,9 @@ import { createApp } from 'vue';
 
 import router from './router';
 
-import AppComponent from './App.vue';
+import App from './App.vue';
 
-const app = createApp(AppComponent);
+const app = createApp(App);
 
 app.use(router);
 
