@@ -1,11 +1,15 @@
 <template>
-	<div>base card</div>
+  <div class="card">
+    <slot></slot>
+  </div>
 </template>
 
 <style scoped>
 .card {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   padding: 1rem;
   margin: 2rem auto;
   max-width: 40rem;

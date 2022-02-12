@@ -1,21 +1,23 @@
 <template>
   <section>FILTER</section>
   <section>
-    <div class="controls">
-      <button>Refresh</button>
-      <router-link to="/register">Register as coach</router-link>
-    </div>
-    <ul>
-      <coach-item
-        v-for="coach of coaches"
-        :key="coach.id"
-        :areas="coach.areas"
-        :firstName="coach.firstName"
-        :id="coach.id"
-        :lastName="coach.lastName"
-        :rate="coach.hourlyRate"
-      ></coach-item>
-    </ul>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline">Refresh</base-button>
+        <base-button link to="/register">Register as coach</base-button>
+      </div>
+      <ul>
+        <coach-item
+          v-for="coach of coaches"
+          :key="coach.id"
+          :areas="coach.areas"
+          :firstName="coach.firstName"
+          :id="coach.id"
+          :lastName="coach.lastName"
+          :rate="coach.hourlyRate"
+        ></coach-item>
+      </ul>
+    </base-card>
   </section>
 </template>	
 
