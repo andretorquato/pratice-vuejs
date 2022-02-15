@@ -1,5 +1,7 @@
 <template>
-  <section>FILTER</section>
+  <section>
+    <coach-filters @change-filters="updatedFilters" ></coach-filters>
+  </section>
   <section>
     <base-card>
       <div class="controls">
@@ -8,7 +10,7 @@
       </div>
       <ul>
         <coach-item
-          v-for="coach of coaches"
+          v-for="coach of filteredCoaches"
           :key="coach.id"
           :areas="coach.areas"
           :firstName="coach.firstName"
@@ -23,16 +25,37 @@
 
 <script>
 import CoachItem from '../../components/coaches/CoachItem.vue';
+import CoachFilters from '../../components/coaches/CoachFilters.vue';
 
 export default {
   components: {
     CoachItem,
+    CoachFilters
+  },
+  data(){
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true, 
+        career: true,
+      },
+    }
   },
   computed: {
-    coaches() {
-      return this.$store.getters['coaches/coaches'];
+    filteredCoaches() {
+      const coaches = this.$store.getters['coaches/coaches']
+      return coaches.filter(coach => {
+        return this.filters.frontend && coach.areas.includes('frontend') ||
+          this.filters.backend && coach.areas.includes('backend') ||
+          this.filters.career && coach.areas.includes('career')
+      });
     },
   },
+  methods:{
+    updatedFilters(filters) {
+      this.activeFilters = filters;
+    },
+  }
 };
 </script>
 <style scoped>
