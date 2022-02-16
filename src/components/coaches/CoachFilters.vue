@@ -1,5 +1,6 @@
 <template>
   <base-card>
+    <h2>Find your Coach</h2>
     <span class="filter-option">
       <input type="checkbox" id="frontend" @change="setFilters" checked />
       <label for="frontend">Frontend</label>
@@ -36,7 +37,7 @@ export default {
         ...this.filters,
         [idInput]: isActive,
       };
-      this.filters = updatedFilters;      
+      this.filters = updatedFilters;
       this.$emit('change-filters', updatedFilters);
     },
   },
