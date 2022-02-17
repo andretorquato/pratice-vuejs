@@ -1,4 +1,16 @@
 <template>
-  <h1>Register</h1>
-  <button><router-link to="/coaches/c1">register</router-link></button>
+  <base-card>
+    <h2>Register now new coach!</h2>
+    <coach-form></coach-form>
+  </base-card>
 </template>
+
+<script>
+import CoachForm from '../../components/coaches/CoachForm.vue';
+
+export default {
+  components: {
+    CoachForm,
+  },
+};
+</script>
