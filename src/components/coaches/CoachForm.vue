@@ -59,7 +59,7 @@ export default {
         rate: this.hourlyRate,
         areas: this.areas,
       };
-      console.log(body);
+      this.$emit('submit', body);
     },
   },
 };
