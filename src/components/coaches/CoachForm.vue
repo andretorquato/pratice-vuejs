@@ -53,13 +53,13 @@ export default {
   methods: {
     submitForm() {
       const body = {
-        first: this.firstName,
-        last: this.lastName,
-        desc: this.description,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        description: this.description,
         rate: this.hourlyRate,
         areas: this.areas,
       };
-      this.$emit('submit', body);
+      this.$emit('save-data', body);
     },
   },
 };
