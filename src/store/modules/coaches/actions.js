@@ -1,10 +1,10 @@
 export default {
 	registerCoach(context, payload) {
 		const body = {
-			id: 'c3', 
+			id: context.rootGetters.userId, 
 			firstName: payload.firstName,
 			lastName: payload.lastName,
-			rate: payload.rate,
+			hourlyRate: payload.rate,
 			areas: payload.areas,
 		}
 		context.commit('registerCoach', body);

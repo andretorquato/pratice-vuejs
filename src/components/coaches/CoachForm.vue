@@ -23,15 +23,15 @@
     <div class="form-control">
       <h2>Areas</h2>
       <div>
-        <input type="checkbox" id="frontend" v-model="areas" />
+        <input type="checkbox" id="frontend" value="frontend" v-model="areas" />
         <label for="frontend">Front-end Developer</label>
       </div>
       <div>
-        <input type="checkbox" id="backend" v-model="areas" />
+        <input type="checkbox" id="backend" value="backend" v-model="areas" />
         <label for="backend">Back-end Developer</label>
       </div>
       <div>
-        <input type="checkbox" id="career" v-model="areas" />
+        <input type="checkbox" id="career" value="career" v-model="areas" />
         <label for="career">Career Advisory</label>
       </div>
     </div>
@@ -59,6 +59,7 @@ export default {
         rate: this.hourlyRate,
         areas: this.areas,
       };
+      console.log('form-body', body);
       this.$emit('save-data', body);
     },
   },
