@@ -34,7 +34,6 @@ export default {
   methods: {
     validateFields() {
       this.formValid = true;
-
       if (this.email == '' || !this.email.includes('@') || this.message == '')
         this.formValid = false;
     },
@@ -42,6 +41,12 @@ export default {
       this.validateFields();
 
       if (!this.formValid) return;
+
+      this.$store.dispatch('requests/addRequest', {
+        coachId: this.$route.params.id,
+        email: this.email,
+        message: this.message,
+      });
     },
   },
 };
