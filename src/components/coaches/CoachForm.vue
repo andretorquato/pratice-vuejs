@@ -144,7 +144,6 @@ export default {
         rate: this.hourlyRate.value,
         areas: this.areas.value,
       };
-      console.log('form-body', body);
       this.$emit('save-data', body);
     },
   },

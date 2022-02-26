@@ -58,7 +58,7 @@ export default {
     updatedFilters(filters) {
       this.activeFilters = filters;
     },
-  }
+  },
 };
 </script>
 <style scoped>
