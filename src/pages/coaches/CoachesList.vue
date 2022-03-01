@@ -1,14 +1,19 @@
 <template>
   <section>
-    <coach-filters @change-filters="updatedFilters" ></coach-filters>
+    <coach-filters @change-filters="updatedFilters"></coach-filters>
   </section>
   <section>
     <base-card>
       <div class="controls">
         <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
-        <base-button v-if="isCoach" link to="/register">Register as coach</base-button>
+        <base-button v-if="!isCoach && !isLoading" link to="/register"
+          >Register as coach</base-button
+        >
       </div>
-      <ul>
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasCoaches">
         <coach-item
           v-for="coach of filteredCoaches"
           :key="coach.id"
@@ -19,6 +24,7 @@
           :rate="coach.hourlyRate"
         ></coach-item>
       </ul>
+      <p v-else>No coaches found</p>
     </base-card>
   </section>
 </template>	
@@ -30,41 +36,49 @@ import CoachFilters from '../../components/coaches/CoachFilters.vue';
 export default {
   components: {
     CoachItem,
-    CoachFilters
+    CoachFilters,
   },
-  data(){
+  data() {
     return {
+      isLoading: true,
       activeFilters: {
         frontend: true,
-        backend: true, 
+        backend: true,
         career: true,
       },
-    }
+    };
   },
   computed: {
     filteredCoaches() {
-      const coaches = this.$store.getters['coaches/coaches']
-      return coaches.filter(coach => {
-        return this.activeFilters.frontend && coach.areas.includes('frontend') ||
-          this.activeFilters.backend && coach.areas.includes('backend') ||
-          this.activeFilters.career && coach.areas.includes('career')
+      const coaches = this.$store.getters['coaches/coaches'];
+      return coaches.filter((coach) => {
+        return (
+          (this.activeFilters.frontend && coach.areas.includes('frontend')) ||
+          (this.activeFilters.backend && coach.areas.includes('backend')) ||
+          (this.activeFilters.career && coach.areas.includes('career'))
+        );
       });
     },
-    isCoach(){
-        return this.$store.getters['coaches/isCoach'];
-      }
+    isCoach() {
+      return this.$store.getters['coaches/isCoach'];
+    },
+    hasCoaches() {
+      return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
+    },
   },
-  methods:{
+  methods: {
     updatedFilters(filters) {
       this.activeFilters = filters;
     },
-    loadCoaches(){
-      this.$store.dispatch('coaches/loadCoaches');
-    }
+    async loadCoaches() {
+      this.isLoading = true;
+      await this.$store.dispatch('coaches/loadCoaches');
+      this.isLoading = false;
+    },
   },
-  created(){
+  created() {
     this.loadCoaches();
-  }
+  },
 };
 </script>
 <style scoped>

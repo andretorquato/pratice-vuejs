@@ -10,7 +10,7 @@ export default {
     };
 
     const response = await fetch(
-      `${process.env.VUE_APP_FIREBASE_URL}/coaches/${userId}.json`,
+      `${process.env.VUE_APP_API_FIREBASE_URLVUE_APP_API_DATABASEcoaches}/${userId}.json`,
       {
         method: 'PUT',
         body: JSON.stringify(body),
@@ -27,12 +27,10 @@ export default {
     });
   },
   async loadCoaches(context) {
-    const response = await fetch(
-      `${process.env.VUE_APP_FIREBASE_URL}/coaches.json`,
+    const response = await fetch(`${process.env.VUE_APP_API_DATABASE}/coaches.json`,
       {
         method: 'GET',
-      }
-    );
+      });
 
     if (!response.ok) {
       throw new Error('Error load data about coaches');
@@ -47,7 +45,6 @@ export default {
         id: key,
       });
     }
-    console.log(coaches);
     context.commit('setCoaches', coaches);
   },
 };
