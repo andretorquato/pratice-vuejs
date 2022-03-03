@@ -18,7 +18,7 @@ export default {
     );
 
     if (!response.ok) {
-      throw new Error('Error update data about user');
+      throw new Error(response.message || 'Error update data about user');
     }
 
     context.commit('registerCoach', {
@@ -27,13 +27,15 @@ export default {
     });
   },
   async loadCoaches(context) {
-    const response = await fetch(`${process.env.VUE_APP_API_DATABASE}/coaches.json`,
+    const response = await fetch(
+      `${process.env.VUE_APP_API_DATABASE}/coaches.json`,
       {
         method: 'GET',
-      });
+      }
+    );
 
     if (!response.ok) {
-      throw new Error('Error load data about coaches');
+      throw new Error(response.statusText || 'Error load coaches');
     }
 
     const coaches = [];
