@@ -18,7 +18,9 @@ export default {
     );
 
     if (!response.ok) {
-      throw new Error(response.message || 'Error update data about user');
+      const data = await response.json();
+      const error = new Error(data.message || 'Error update data about user'); 
+      throw error;
     }
 
     context.commit('registerCoach', {
@@ -33,14 +35,11 @@ export default {
         method: 'GET',
       }
     );
-
-    if (!response.ok) {
-      throw new Error(response.statusText || 'Error load coaches');
-    }
-
     const coaches = [];
     const data = await response.json();
-
+    if (!response.ok) {
+      throw new Error(data.message || 'Error load coaches');
+    }
     for (let key in data) {
       coaches.push({
         ...data[key],
