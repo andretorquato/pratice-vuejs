@@ -33,7 +33,7 @@ export default {
         return;
     
     const response = await fetch(
-      `${process.env.VUE_APP_API_DATABASE}/coaches.json`,
+      `${process.env.VUE_APP_API_DATABASE}/coaches.jsn`,
       {
         method: 'GET',
       }
