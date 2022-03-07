@@ -1,35 +1,39 @@
 <template>
-  <base-dialog :show="!!error" title="An error ocurred!" @close="closeError">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <coach-filters @change-filters="updatedFilters"></coach-filters>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button mode="outline" @click="loadCoaches(true)">Refresh</base-button>
-        <base-button v-if="!isCoach && !isLoading" link to="/register"
-          >Register as coach</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasCoaches">
-        <coach-item
-          v-for="coach of filteredCoaches"
-          :key="coach.id"
-          :areas="coach.areas"
-          :firstName="coach.firstName"
-          :id="coach.id"
-          :lastName="coach.lastName"
-          :rate="coach.hourlyRate"
-        ></coach-item>
-      </ul>
-      <p v-else>No coaches found</p>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" title="An error ocurred!" @close="closeError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <coach-filters @change-filters="updatedFilters"></coach-filters>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline" @click="loadCoaches(true)"
+            >Refresh</base-button
+          >
+          <base-button v-if="!isCoach && !isLoading" link to="/register"
+            >Register as coach</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasCoaches">
+          <coach-item
+            v-for="coach of filteredCoaches"
+            :key="coach.id"
+            :areas="coach.areas"
+            :firstName="coach.firstName"
+            :id="coach.id"
+            :lastName="coach.lastName"
+            :rate="coach.hourlyRate"
+          ></coach-item>
+        </ul>
+        <p v-else>No coaches found</p>
+      </base-card>
+    </section>
+  </div>
 </template>	
 
 <script>
@@ -80,16 +84,18 @@ export default {
     async loadCoaches(refresh = false) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('coaches/loadCoaches', { forceUpdate: refresh });
-      } catch(err) {
+        await this.$store.dispatch('coaches/loadCoaches', {
+          forceUpdate: refresh,
+        });
+      } catch (err) {
         this.error = err;
       }
       this.isLoading = false;
     },
     closeError() {
       this.error = null;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
