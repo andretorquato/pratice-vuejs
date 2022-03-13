@@ -15,7 +15,9 @@
       </p>
       <div class="form-control">
         <base-button>{{ submitButtonCaption }}</base-button>
-        <base-button mode="outline" @click="switchModeButton">{{ switchModeButtonCaption }}</base-button>
+        <base-button mode="outline" @click="switchModeButton">{{
+          switchModeButtonCaption
+        }}</base-button>
       </div>
     </form>
   </base-card>
@@ -51,13 +53,18 @@ export default {
         this.formIsValid = false;
         return;
       }
-      // request
+      if (this.mode == 'login') {
+        // login
+      } else {
+        this.$store.dispatch('signup', {
+          email: this.email,
+          password: this.password,
+        });
+      }
     },
     switchModeButton() {
-      if (this.mode == 'login') 
-        this.mode = 'signup';
-      else 
-        this.mode = 'login';
+      if (this.mode == 'login') this.mode = 'signup';
+      else this.mode = 'login';
     },
   },
 };
