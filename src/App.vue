@@ -28,7 +28,7 @@ html {
 
 body {
   margin: 0;
-	padding: 0;	
+  padding: 0;
 }
 
 .route-enter-from {
@@ -40,11 +40,11 @@ body {
   transform: translateY(-30px);
 }
 
-.route-enter-active{
+.route-enter-active {
   transition: all 0.3s ease-out;
 }
 
-.route-leave-active{
+.route-leave-active {
   transition: all 0.3s ease-out;
 }
 
