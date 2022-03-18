@@ -27,7 +27,7 @@
         </p>
         <div class="form-control">
           <base-button>{{ submitButtonCaption }}</base-button>
-          <base-button mode="outline" @click="switchModeButton">{{
+          <base-button mode="outline" type="button" @click="switchModeButton">{{
             switchModeButtonCaption
           }}</base-button>
         </div>
@@ -66,14 +66,15 @@ export default {
         return;
       }
       this.isLoading = true;
+      const authPayload = {
+        email: this.email,
+        password: this.password,
+      }
       try {
         if (this.mode == 'login') {
-          // login
+          await this.$store.dispatch('login', authPayload)
         } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$store.dispatch('signup', authPayload);
         }
       } catch (err) {
         this.error = err.message || 'Failed to authenticate. Try again later.';
