@@ -12,9 +12,12 @@ export default {
     if (!response.ok){
       const error = new Error(data.message || 'Failed to login');
       throw error;
-    }
-    console.log(data);
-    // context.commit('setUser', data.localId);
+    }    
+    context.commit('setUser', {
+      token: data.idToken,
+      userId: data.localId,
+      tokenExpiration: data.expiresIn,
+    });
   },
   async signup(context, payload) {
     const response = await fetch(
@@ -36,8 +39,6 @@ export default {
       );
       throw error;
     }
-
-    console.log(data);
     context.commit('setUser', {
       token: data.idToken,
       userId: data.localId,

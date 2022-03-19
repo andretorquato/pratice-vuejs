@@ -22,7 +22,7 @@ export default {
   async fetchRequests(context) {
     const requests = [];
     const coachId = context.rootGetters.userId;
-    const response = await fetch(`${process.env.VUE_APP_API_DATABASE}/requests/${coachId}.json`,
+    const response = await fetch(`${process.env.VUE_APP_API_DATABASE}/requests/${coachId}.json?auth=${context.rootGetters.token}`,
       { method: 'GET' });
     const data = await response.json();
     if (!response.ok) {

@@ -10,7 +10,7 @@ export default {
     };
 
     const response = await fetch(
-      `${process.env.VUE_APP_API_FIREBASE_URLVUE_APP_API_DATABASEcoaches}/${userId}.json`,
+      `${process.env.VUE_APP_API_DATABASE}/coaches/${userId}.json?auth=${context.rootGetters.token}`,
       {
         method: 'PUT',
         body: JSON.stringify(body),
