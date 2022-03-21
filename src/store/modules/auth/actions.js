@@ -45,4 +45,7 @@ export default {
       tokenExpiration: data.expiresIn,
     });
   },
+  logout(context){
+    context.commit('logout');
+  }
 };
