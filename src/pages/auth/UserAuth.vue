@@ -76,6 +76,8 @@ export default {
         } else {
           await this.$store.dispatch('signup', authPayload);
         }
+        const url = '/' + (this.$route.query.redirect || 'coaches');
+        this.$router.replace(url);
       } catch (err) {
         this.error = err.message || 'Failed to authenticate. Try again later.';
       }
@@ -93,7 +95,7 @@ export default {
     closeError() {
       this.error = null;
     },
-  },
+  }
 };
 </script>
 <style scoped>
