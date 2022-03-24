@@ -1,6 +1,8 @@
 export default {
-  async login(context, payload) {
-    const response = await fetch(`${process.env.VUE_APP_URL_AUTH_FIREBASE}/accounts:signInWithPassword?key=${process.env.VUE_APP_KEY_AUTH}`, {
+  async auth(context, payload){
+    const query = payload.query;
+    const errorMessage = payload.errorMessage;
+    const response = await fetch(`${process.env.VUE_APP_URL_AUTH_FIREBASE}/accounts:${query}?key=${process.env.VUE_APP_KEY_AUTH}`, {
       method: 'POST',
       body: JSON.stringify({
         email: payload.email,
@@ -10,42 +12,43 @@ export default {
     });
     const data = await response.json();
     if (!response.ok){
-      const error = new Error(data.message || 'Failed to login');
+      const error = new Error(data.message || errorMessage);
       throw error;
-    }    
+    } 
+    localStorage.setItem('token', data.idToken);
+    localStorage.setItem('userId', data.localId);
     context.commit('setUser', {
       token: data.idToken,
       userId: data.localId,
       tokenExpiration: data.expiresIn,
     });
   },
-  async signup(context, payload) {
-    const response = await fetch(
-      `${process.env.VUE_APP_URL_AUTH_FIREBASE}/accounts:signUp?key=${process.env.VUE_APP_KEY_AUTH}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: payload.email,
-          password: payload.password,
-          returnSecureToken: true,
-        }),
-      }
-    );
-    const data = await response.json();
-    if (!response.ok) {
-      console.log(data);
-      const error = new Error(
-        (await data.message) || 'Failed to create new user'
-      );
-      throw error;
-    }
-    context.commit('setUser', {
-      token: data.idToken,
-      userId: data.localId,
-      tokenExpiration: data.expiresIn,
+  login(context, payload) {
+    context.dispatch('auth', {
+      ...payload,
+      query: 'signInWithPassword',
+      errorMessage: 'Failed to login'
+    });
+  },
+  signup(context, payload) {
+    context.dispatch('auth', {
+      ...payload,
+      query: 'signUp',
+      errorMessage: 'Failed to create new user'
     });
   },
   logout(context){
     context.commit('logout');
+  },
+  tryLogin(context){
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if(!token || !userId){
+      return;
+    }
+    context.commit('setUser', {
+      token,
+      userId,
+    });
   }
 };
