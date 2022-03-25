@@ -69,10 +69,10 @@ export default {
       const authPayload = {
         email: this.email,
         password: this.password,
-      }
+      };
       try {
         if (this.mode == 'login') {
-          await this.$store.dispatch('login', authPayload)
+          await this.$store.dispatch('login', authPayload);
         } else {
           await this.$store.dispatch('signup', authPayload);
         }
@@ -95,7 +95,7 @@ export default {
     closeError() {
       this.error = null;
     },
-  }
+  },
 };
 </script>
 <style scoped>
@@ -128,4 +128,4 @@ textarea:focus {
   background-color: #faf6ff;
   outline: none;
 }
-</style>	
+</style>

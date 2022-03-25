@@ -16,7 +16,6 @@
   </base-card>
 </template>
 
-
 <script>
 export default {
   emits: ['change-filters'],

@@ -7,7 +7,6 @@
   </router-link>
 </template>
 
-
 <script>
 export default {
   props: {

@@ -13,9 +13,9 @@ export default {
   components: {
     TheHeader,
   },
-  created(){
+  created() {
     this.$store.dispatch('tryLogin');
-  }
+  },
 };
 </script>
 <style>

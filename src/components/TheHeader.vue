@@ -4,9 +4,13 @@
       <h1><router-link to="/">Find a coach</router-link></h1>
       <ul>
         <li><router-link to="/coaches">All coaches</router-link></li>
-        <li v-if="isLoggedIn"><router-link to="/requests">Requests</router-link></li>
+        <li v-if="isLoggedIn">
+          <router-link to="/requests">Requests</router-link>
+        </li>
         <li v-else><router-link to="/auth">Login</router-link></li>
-        <li v-if="isLoggedIn"><base-button @click="logout">Logout</base-button></li>
+        <li v-if="isLoggedIn">
+          <base-button @click="logout">Logout</base-button>
+        </li>
       </ul>
     </nav>
   </header>
@@ -15,17 +19,17 @@
 <script>
 export default {
   computed: {
-    isLoggedIn(){
+    isLoggedIn() {
       return this.$store.getters.isAuthenticated;
-    }
+    },
   },
   methods: {
-    logout(){
+    logout() {
       this.$store.dispatch('logout');
       this.$router.replace('/auth');
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
