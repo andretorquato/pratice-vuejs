@@ -18,10 +18,11 @@ export default {
       throw error;
     } 
     
-    const expirationIn = +data.expiresIn * 1000;
+    // const expirationIn = +data.expiresIn * 1000;
+    const expirationIn = 10000;
     const expirationDate = new Date().getTime() + expirationIn;
     
-    setTimeout(() => {
+    timer = setTimeout(() => {
       context.dispatch('autoLogout');
     }, expirationIn);
 
@@ -62,13 +63,14 @@ export default {
     
     const expireIn = +tokenExpiration - new Date().getTime();
     if(expireIn < 0){
-      context.dispatch('logout');
+      context.dispatch('autoLogout');
       return;
     }
 
-    setTimeout(() => {
+    timer = setTimeout(() => {
       context.dispatch('autoLogout');
     }, expireIn);
+
     if(!token || !userId){
       return;
     }
@@ -78,7 +80,7 @@ export default {
     });
   },
   autoLogout(context){
-    context.commit('logout');
-    context.commit('autoLogout');
+    context.dispatch('logout');
+    context.commit('setDidAutoLogout');
   }
 };
